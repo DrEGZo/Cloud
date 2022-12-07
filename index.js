@@ -8,7 +8,8 @@ app.get('/:id', (req, res, next) => {
     fs.readFile(__dirname + '/sids.json', (err, data) => {
         if (err) throw err;
         let keys = JSON.parse(data);
-        for (let key in keys) {
+        console.log(Date.now(), keys);
+	for (let key in keys) {
             if (keys[key].expires < Date.now()) delete keys[key];
         }
         if (id in keys) {
@@ -16,9 +17,9 @@ app.get('/:id', (req, res, next) => {
             // delete keys[id];
         }
         else next();
-        fs.writeFile(__dirname + '/sids.json', JSON.stringify(keys), err => {
+        /*fs.writeFile(__dirname + '/sids.json', JSON.stringify(keys), err => {
             if (err) throw err;
-        });
+        });*/
     });
 });
 
